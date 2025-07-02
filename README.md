@@ -2,6 +2,7 @@
 This is a full-featured Gym Management System built using HTML, CSS, JavaScript, and Firebase (Authentication and Firestore). The system is designed to simplify and automate the daily operations of a gym by providing different roles and dashboards for Admin, Members, and Visitors.
 
 Key Features
+
 Admin Panel
 Secure login with Firebase Authentication
 
@@ -17,6 +18,7 @@ Send custom notifications and reminders (e.g., payment due, expiry alerts)
 
 Upload daily workout plans accessible by all members
 
+
 Member Dashboard
 Login with assigned credentials
 
@@ -28,12 +30,14 @@ Get reminders and updates from the admin
 
 Access daily workout routines shared by the gym
 
+
 Public Website (Visitor View)
 Visitors can view the main website without logging in
 
 Overview of gym services, membership plans, and contact options
 
 Option to join by registering through the membership system
+
 
 Technologies Used
 Frontend: HTML, CSS, JavaScript
