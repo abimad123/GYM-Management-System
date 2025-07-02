@@ -4,6 +4,7 @@ This is a full-featured Gym Management System built using HTML, CSS, JavaScript,
 Key Features
 
 Admin Panel
+
 Secure login with Firebase Authentication
 
 Add new gym members with personal and membership details
@@ -20,6 +21,7 @@ Upload daily workout plans accessible by all members
 
 
 Member Dashboard
+
 Login with assigned credentials
 
 View personal profile, membership details, and expiry date
@@ -32,6 +34,7 @@ Access daily workout routines shared by the gym
 
 
 Public Website (Visitor View)
+
 Visitors can view the main website without logging in
 
 Overview of gym services, membership plans, and contact options
@@ -60,13 +63,16 @@ Folder Structure
 
 
 Firebase Services Used
+
 Authentication – Email/password login for admin and members
 
 Firestore – Stores member data, bills, workouts, and notifications
 
 Firebase Rules – Secured access to data based on user roles
 
+
 Setup Instructions
+
 Clone the repository
 
 Connect your Firebase project and replace the config in firebaseConfig section
@@ -87,7 +93,9 @@ match /members/{userId} {
 }
 
 
+
 Future Improvements
+
 Add member progress tracking (weight, attendance, etc.)
 
 Enable email notifications using Firebase Cloud Functions
