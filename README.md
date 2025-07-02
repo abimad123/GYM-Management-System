@@ -20,7 +20,9 @@ Send custom notifications and reminders (e.g., payment due, expiry alerts)
 Upload daily workout plans accessible by all members
 
 
+
 Member Dashboard
+
 
 Login with assigned credentials
 
@@ -84,13 +86,6 @@ Update Firebase security rules to ensure proper access control
 Deploy locally or host via Firebase Hosting
 
 
-Security Rules Example
-
-match /members/{userId} {
-  allow read, write: if request.auth != null && (
-    request.auth.uid == userId || request.auth.token.email == "admin@gym.com"
-  );
-}
 
 
 
