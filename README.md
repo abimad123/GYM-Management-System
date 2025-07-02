@@ -55,13 +55,21 @@ Hosting: Firebase Hosting (optional)
 
 
 Folder Structure
+
 /index.html              # Main landing page (public)
+
  /login.html             # Login page for both roles
+ 
  /admin.html             # Admin dashboard
+ 
  /member.html            # Member dashboard
+ 
  /js/                    # JavaScript logic
+ 
  /css/                   # Stylesheets
+ 
  /assets/                # Images and icons
+ 
 
 
 Firebase Services Used
