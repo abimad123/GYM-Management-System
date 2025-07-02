@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muscle Mech | Login Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff5e14;
+      --secondary: #1a1a2e;
+      --accent: #00b4d8;
+      --light: #f8f9fa;
+      --dark: #16213e;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--light);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: url(../assets/images/loginbg.avif);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      position: relative;
+    }
+    
+    .login-container {
+      position: relative;
+      z-index: 1;
+      background: white;
+      width: 100%;
+      max-width: 750px;
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .login-header img {
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+    
+    .login-header h2 {
+      font-size: 1.8rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .login-header p {
+      color: #777;
+      font-size: 0.9rem;
+    }
+    
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .form-group {
+      position: relative;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(255, 94, 20, 0.2);
+    }
+    
+    .form-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+    }
+    
+    .role-select {
+      appearance: none;
+      -webkit-appearance: none;
+     background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1em;
+    }
+    
+    .login-btn {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .login-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 94, 20, 0.3);
+    }
+    
+    .login-footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    
+    .login-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .login-msg {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      min-height: 1.5rem;
+    }
+    
+    .error-msg {
+      color: #e63946;
+    }
+    
+    .success-msg {
+      color: #2a9d8f;
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+      cursor: pointer;
+    }
+    
+    /* Role Selection Animation */
+    .role-selection {
+      display: flex;
+      background: #f5f7fa;
+      border-radius: 8px;
+      padding: 5px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .role-option {
+      flex: 1;
+      text-align: center;
+      padding: 0.8rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: #777;
+    }
+    
+    .role-option.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .role-option i {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 576px) {
+      .login-container {
+        padding: 2rem;
+        margin: 1rem;
+      }
+      
+      .login-header h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <img src="../assets/images/logo.jpg" alt="Logo" style=" width: 60px; height: 60px; border-radius: 100%; transform: scale(2.);">
+      <h2>Welcome Back</h2>
+      <p>Sign in to access your fitness dashboard</p>
+    </div>
+    
+    <div class="role-selection">
+      <div class="role-option active" data-role="member">
+        <i class="fas fa-user"></i>
+        Member
+      </div>
+      <div class="role-option" data-role="admin">
+        <i class="fas fa-lock"></i>
+        Admin
+      </div>
+     
+    </div>
+    
+    <form class="login-form" id="loginForm">
+      <input type="hidden" id="role" value="member">
+      
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <div class="form-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="form-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+        <span class="password-toggle" id="togglePassword">
+          <i class="fas fa-eye"></i>
+        </span>
+      </div>
+      
+      <div class="form-group">
+        <button type="submit" class="login-btn">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </div>
+      
+      <div class="login-msg" id="loginMsg"></div>
+    </form>
+    
+    <div class="login-footer">
+      <p>Don't have an account? <a href="register.html">Register here</a></p>
+      <!-- <p><a href="forget.html">Forgot password?</a></p> -->
+    </div>
+  </div>
+
+ <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEiWqxChMeB2zdsGE2Zw7g0G2eraMg30Y",
+    authDomain: "gym-management-system-13087.firebaseapp.com",
+    projectId: "gym-management-system-13087",
+    storageBucket: "gym-management-system-13087.firebasestorage.app",
+    messagingSenderId: "134681146772",
+    appId: "1:134681146772:web:51ad6d0fd789fcea118b81",
+    measurementId: "G-PZLQXX5CXT"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // Global Variables
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const roleOptions = document.querySelectorAll('.role-option');
+    const roleInput = document.getElementById('role');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const loginMsg = document.getElementById('loginMsg');
+
+    // Role Selection
+    roleOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        roleOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        roleInput.value = option.dataset.role;
+      });
+    });
+
+    // Password toggle
+    togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.innerHTML = type === 'password'
+        ? '<i class="fas fa-eye"></i>'
+        : '<i class="fas fa-eye-slash"></i>';
+    });
+
+    // Show feedback
+    function showMessage(message, type) {
+      loginMsg.textContent = message;
+      loginMsg.className = `login-msg ${type}-msg`;
+    }
+
+    // Handle Login Submit
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = passwordInput.value;
+      const role = roleInput.value;
+
+      if (!email || !password || !role) {
+        showMessage('⚠️ Please fill in all fields and select a role.', 'error');
+        return;
+      }
+
+      try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        sessionStorage.setItem("isLoggedIn", "true");
+
+        const adminEmail = "admin@gym.com"; // 👈 Your defined admin
+
+        if (role === 'admin') {
+          if (email === adminEmail) {
+            sessionStorage.setItem("userRole", "admin");
+            window.location.href = "../admin.html";
+          } else {
+            showMessage("❌ Access denied. Not an admin account.", "error");
+            auth.signOut();
+          }
+        } else if (role === 'member') {
+          if (email !== adminEmail) {
+            sessionStorage.setItem("userRole", "member");
+            window.location.href = "../member.html";
+          } else {
+            showMessage("❌ Admin cannot log in as member.", "error");
+            auth.signOut();
+          }
+        }
+
+      } catch (error) {
+        showMessage(`❌ ${error.message}`, "error");
+      }
+    });
+
+    // Animation
+    setTimeout(() => {
+      const container = document.querySelector('.login-container');
+      if (container) {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }
+    }, 100);
+  });
+</script>
+</body>
+</html>

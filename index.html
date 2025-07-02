@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muscle Mech | Gym Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#" class="logo">
+      <img src="assets/images/logo.jpg" alt="Logo" style=" width: 40px; height: 40px; border-radius: 100%; transform: scale(2.);">
+      Muscle Mech
+    </a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#plans">Plans</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact">Contact</a>
+     
+      <div class="dropdown">
+        <button class="dropbtn">
+          <i class="fas fa-user"></i> Login
+        </button>
+        <div class="dropdown-content">
+          <a href="auth/login.html?role=member"><i class="fas fa-user"></i> Member Login</a>
+          <a href="auth/login.html?role=admin"><i class="fas fa-lock"></i> Admin Login</a>
+        </div>
+      </div>
+      <a href="auth/register.html" class="dropbtn">
+        <i class="fas fa-user"></i>Book Appointment
+      </a>
+    </div>
+    <button class="mobile-menu-btn">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1 class="fade-in">Transform Your Body, Elevate Your Life</h1>
+      <p class="fade-in delay-1">Join the most advanced gym management system that combines cutting-edge technology with world-class fitness training to help you achieve your goals faster.</p>
+      <div class="cta-buttons fade-in delay-2">
+        <a href="#plans" class="btn btn-primary">Get Started</a>
+        <a href="#facilities" class="btn btn-secondary">Explore Facilities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stat-item slide-up">
+      <div class="stat-number">800+</div>
+      <div class="stat-label">Active Members</div>
+    </div>
+    <div class="stat-item slide-up delay-1">
+      <div class="stat-number">6+</div>
+      <div class="stat-label">Certified Trainers</div>
+    </div>
+    <div class="stat-item slide-up delay-2">
+      <div class="stat-number">24/7</div>
+      <div class="stat-label">Open Gym</div>
+    </div>
+    <div class="stat-item slide-up delay-3">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Member Satisfaction</div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-content">
+      <h2 class="slide-up">Why Choose Muscle Mech?</h2>
+      <p class="slide-up delay-1">We’re more than just a gym – we’re a complete fitness ecosystem. Our all-in-one management system lets you track workouts, schedule sessions, monitor your progress, and stay connected with trainers effortlessly.</p>
+      <p class="slide-up delay-1">With state-of-the-art equipment and personalized training programs, we make fitness accessible for everyone – from beginners to professional athletes.</p>
+      <div class="features slide-up delay-2">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <div class="feature-text">
+            <h3>Health Monitoring</h3>
+            <p>Real-time tracking of vitals and progress through our advanced systems.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <div class="feature-text">
+            <h3>Smart Scheduling</h3>
+            <p>Book classes and trainers with our easy-to-use scheduling system.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="feature-text">
+            <h3>Progress Analytics</h3>
+            <p>Detailed reports and analytics to track your fitness journey.</p>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <div class="about-image slide-up">
+      <img src="assets/images/tra2.jpg" alt="Gym Interior">
+    </div>
+  </section>
+
+  <!-- Facilities Section -->
+  <section class="facilities" id="facilities">
+    <div class="section-header slide-up">
+      <h2>World-Class Facilities</h2>
+      <p>Experience premium fitness equipment and amenities designed to enhance your workout experience.</p>
+    </div>
+    <div class="facilities-grid">
+      <div class="facility-card slide-up">
+        <div class="facility-image">
+          <img src="assets/images/fac2.avif" alt="Weight Training Area">
+        </div>
+        <div class="facility-content">
+          <h3>Weight Training Zone</h3>
+          <p>Our expansive free weights area features premium equipment from leading brands, with dedicated spaces for powerlifting, Olympic lifting, and functional training.</p>
+          <div class="facility-meta">
+            <div class="facility-price">24/7 Access</div>
+            <!-- <a href="#" class="facility-link">View Details <i class="fas fa-arrow-right"></i></a> -->
+          </div>
+        </div>
+      </div>
+      <div class="facility-card slide-up delay-1">
+        <div class="facility-image">
+          <img src="assets/images/fac1.avif" alt="Cardio Area">
+        </div>
+        <div class="facility-content">
+          <h3>Cardio Theater</h3>
+          <p>Over 50 state-of-the-art cardio machines with personal entertainment systems, virtual training programs, and real-time performance tracking.</p>
+          <div class="facility-meta">
+            <div class="facility-price">Smart Tracking</div>
+            <!-- <a href="#" class="facility-link">View Details <i class="fas fa-arrow-right"></i></a> -->
+          </div>
+        </div>
+      </div>
+      <div class="facility-card slide-up delay-2">
+        <div class="facility-image">
+          <img src="assets/images/loginbg.avif" alt="Group Classes">
+        </div>
+        <div class="facility-content">
+          <h3>Group Fitness Studio</h3>
+          <p>Daily classes including HIIT, yoga, cycling, and dance with our expert instructors. LED lighting and premium sound system create an immersive experience.</p>
+          <div class="facility-meta">
+            <div class="facility-price">30+ Classes Weekly</div>
+            <!-- <a href="#" class="facility-link">View Details <i class="fas fa-arrow-right"></i></a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Membership Plans -->
+  <section class="plans" id="plans">
+    <div class="section-header slide-up">
+      <h2>Flexible Membership Plans</h2>
+      <p>Choose the plan that fits your lifestyle and fitness goals. All plans include access to our mobile app with progress tracking.</p>
+    </div>
+    <div class="plans-grid">
+      <div class="plan-card slide-up">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">600<span>/month</span></div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i> Gym Access (Peak Hours)</li>
+          <li><i class="fas fa-check"></i> Free Weights Area</li>
+          <li><i class="fas fa-check"></i> Locker Room Access</li>
+          <li><i class="fas fa-check"></i> Basic Progress Tracking</li>
+          <li><i class="fas fa-times"></i> Group Classes</li>
+          <li><i class="fas fa-times"></i> Personal Trainer</li>
+        </ul>
+        <a href="auth/register.html" class="plan-btn">Get Started</a>
+      </div>
+      <div class="plan-card popular slide-up delay-1">
+        <div class="popular-tag">Most Popular</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">$999<span>/month</span></div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i> 24/7 Gym Access</li>
+          <li><i class="fas fa-check"></i> All Equipment Areas</li>
+          <li><i class="fas fa-check"></i> Unlimited Group Classes</li>
+          <li><i class="fas fa-check"></i> Advanced Progress Tracking</li>
+          <li><i class="fas fa-check"></i> 1 Free PT Session/Month</li>
+          <li><i class="fas fa-check"></i> Nutritional Guidance</li>
+        </ul>
+        <a href="auth/register.html" class="plan-btn">Get Started</a>
+      </div>
+      <div class="plan-card slide-up delay-2">
+        <div class="plan-name">Elite</div>
+        <div class="plan-price">1599<span>/month</span></div>
+        <ul class="plan-features">
+          <li><i class="fas fa-check"></i> 24/7 Gym Access</li>
+          <li><i class="fas fa-check"></i> All Premium Facilities</li>
+          <li><i class="fas fa-check"></i> Unlimited Group Classes</li>
+          <li><i class="fas fa-check"></i> 4 PT Sessions/Month</li>
+          <li><i class="fas fa-check"></i> Body Composition Analysis</li>
+          <li><i class="fas fa-check"></i> Custom Meal Plans</li>
+        </ul>
+        <a href="auth/register.html" class="plan-btn">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-header slide-up">
+      <h2>Success Stories</h2>
+      <p>Hear from our members who transformed their lives with Muscle Mech.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card slide-up">
+        <div class="testimonial-text">
+          "The progress tracking system has transformed the way I approach fitness. Being able to see real data about my improvements keeps me consistently motivated"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
+          </div>
+          <div class="author-info">
+            <h4>Sarah Johnson</h4>
+            <p>Member since 2024</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card slide-up delay-1">
+        <div class="testimonial-text">
+          "As a busy professional, the mobile app lets me schedule workouts, track progress, and even do virtual training when I can't make it to the gym."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael Chen">
+          </div>
+          <div class="author-info">
+            <h4>Michael Chen</h4>
+            <p>Member since 2025</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card slide-up delay-2">
+        <div class="testimonial-text">
+          "The integration between the trainers' systems and my personal tracking means every session is perfectly tailored to my current fitness level and goals."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez">
+          </div>
+          <div class="author-info">
+            <h4>Emma Rodriguez</h4>
+            <p>Member since 2022</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="contact-info slide-up">
+      <h2>Get In Touch</h2>
+      <p>Have questions about our facilities or membership plans? Our team is ready to help you start your fitness journey.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-text">
+            <h3>Location</h3>
+            <p>1A Street Delhi, India</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <div class="contact-text">
+            <h3>Phone</h3>
+            <a href="tel:+11234567890">+91 990XXXXXXX</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-text">
+            <h3>Email</h3>
+            <a href="mailto:info@musclemech.com">info@musclemech.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="contact-text">
+            <h3>Hours</h3>
+            <p>Monday - Sunday: 5:00 AM - 11:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form slide-up delay-1">
+      <form>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-about">
+        <div class="footer-logo">
+          <img src="assets/images/logo.jpg" alt="Muscle Mech Logo">
+          Muscle Mech
+        </div>
+        <p>Revolutionizing fitness through technology and personalized training since 2015. Our integrated management system makes achieving your goals easier than ever.</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+          <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+          <li><a href="#facilities"><i class="fas fa-chevron-right"></i> Facilities</a></li>
+          <li><a href="#plans"><i class="fas fa-chevron-right"></i> Membership Plans</a></li>
+          <li><a href="#testimonials"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+          <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Personal Training</a></li>
+        
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Nutrition Plans</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Body Analysis</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Virtual Training Comming Soon</a></li>
+        </ul>
+      </div>
+      
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Muscle Mech. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

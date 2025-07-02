@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Muscle Mech</title>
+   <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script>
+if (sessionStorage.getItem("isLoggedIn") !== "true" || sessionStorage.getItem("userRole") !== "admin") {
+  alert("Unauthorized access!");
+  window.location.href = "auth/login.html";
+}
+</script>
+
+</head>
+<body>
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      
+      <h1>Muscle Mech</h1>
+    </div>
+    
+    <div class="nav-menu">
+      <a href="#dashboard" class="nav-link ">
+        <i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+      <a href="#members" class="nav-link">
+        <i class="fas fa-users"></i>
+        Members
+      </a>
+      <a href="#billing" class="nav-link">
+        <i class="fas fa-credit-card"></i>
+        Billing
+      </a>
+     
+      <a href="#classes" class="nav-link">
+        <i class="fas fa-calendar-alt"></i>
+        Classes
+      </a>
+      <a href="#notifications" class="nav-link">
+        <i class="fas fa-bell"></i>
+        Notifications
+      </a>
+    </div>
+    
+    <div class="user-menu">
+      <div class="user-avatar">
+       <img src="assets/images/logo.jpg" alt="Logo">
+      </div>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Admin Dashboard</h1>
+      </div>
+    </div>
+    
+    <!-- Dashboard Widgets -->
+    <div class="dashboard-grid" id="dashboard">
+      <div class="widget">
+        <div class="widget-header">
+          <h3 class="widget-title">Gym Statistics</h3>
+          <span class="widget-actions">Updated: Today</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">1,245</div>
+            <div class="stat-label">Total Members</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">₹2,84,500</div>
+            <div class="stat-label">Monthly Revenue</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">87%</div>
+            <div class="stat-label">Attendance Rate</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="widget">
+        <div class="widget-header">
+          <h3 class="widget-title">Recent Activity</h3>
+          <span class="widget-actions">View All</span>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-time">10:30 AM</div>
+            <div class="activity-text">5 new members registered today</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-time">9:15 AM</div>
+            <div class="activity-text">Monthly maintenance check completed</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-time">Yesterday</div>
+            <div class="activity-text">12 membership renewals processed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Members Section -->
+    <div class="form-container" id="members">
+      <h2 class="form-title">Member Management</h2>
+      
+      <div class="tabs">
+        <div class="tab active" data-tab="add-member">Add Member</div>
+        <div class="tab" data-tab="view-members">View Members</div>
+      </div>
+      
+      <div class="tab-content active" id="add-member">
+        <form id="memberForm">
+
+           <div class="form-group">
+            <label class="form-label">Membership Plan</label>
+            <select class="form-control form-select" id="member-plan" required>
+              <option value="">Select plan</option>
+              <option value="basic">Basic (₹600/month)</option>
+              <option value="premium">Premium (₹999/month)</option>
+              <option value="elite">Elite (₹1599/month)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="member-name" placeholder="Enter full name" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="member-email" placeholder="Enter email" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="member-password" placeholder="Set password" required>
+          </div> 
+
+          <div class="form-group">
+            <label class="form-label">Join Date</label>
+            <input type="date" class="form-control" id="member-dob" required>   
+          </div>
+
+            <div class="form-group">
+            <label class="form-label">Gender</label>
+            <div style="display: flex; gap: 1.5rem; align-items: center; margin-top: 0.5rem;">
+              <label> <input type="radio" name="member-gender" value="male" required> Male </label>
+              <label> <input type="radio" name="member-gender" value="female" required> Female </label>
+              <label> <input type="radio" name="member-gender" value="other" required> Other </label>
+            </div>
+            </div>
+           
+          
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="member-phone" placeholder="Enter phone number" required>
+          </div>
+          
+          
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Add Member
+          </button>
+        </form>
+      </div>
+      
+      <div class="tab-content" id="view-members">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="memberTableBody">
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Billing Section -->
+    <div class="form-container" id="billing">
+      <h2 class="form-title">Billing Management</h2>
+      
+      <form id="billForm">
+        <div class="form-group">
+          <label class="form-label">Select Member</label>
+          <select class="form-control form-select" id="billMemberSelect" required>
+            <option value="">Select member</option>
+            <option value="1">Rahul Sharma (Premium)</option>
+            <option value="2">Priya Patel (Elite)</option>
+            <option value="3">Amit Singh (Basic)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Package Name</label>
+          <input type="text" class="form-control" id="packageName" placeholder="Enter package name" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Amount (₹)</label>
+          <input type="number" class="form-control" id="billAmount" placeholder="Enter amount" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Due Date</label>
+          <input type="date" class="form-control" id="dueDate" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-file-invoice"></i> Create Bill
+        </button>
+      </form>
+      
+      <div class="table-responsive" style="margin-top: 2rem;">
+        <h3>Recent Bills</h3>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Member</th>
+              <th>Package</th>
+              <th>Amount</th>
+              <th>Due Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Rahul Sharma</td>
+              <td>Premium Membership</td>
+              <td>₹2,500</td>
+              <td>15 May 2023</td>
+              <td><span class="status-badge status-active">Paid</span></td>
+            </tr>
+            <tr>
+              <td>Priya Patel</td>
+              <td>Elite Membership</td>
+              <td>₹4,000</td>
+              <td>20 May 2023</td>
+              <td><span class="status-badge status-active">Paid</span></td>
+            </tr>
+            <tr>
+              <td>Amit Singh</td>
+              <td>Basic Membership</td>
+              <td>₹1,500</td>
+              <td>10 May 2023</td>
+              <td><span class="status-badge status-inactive">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Notification Section -->
+    <div class="form-container" id="notifications">
+      <h2 class="form-title">Send Notification</h2>
+      
+      <form id="notificationForm">
+        <div class="form-group">
+          <label class="form-label">Notification Type</label>
+          <select class="form-control form-select" id="notifType" required>
+            <option value="">Select type</option>
+            <option value="all">All Members</option>
+            <option value="expiring">Expiring Memberships</option>
+            <option value="specific">Specific Members</option>
+          </select>
+        </div>
+        
+        <div class="form-group" id="specificMembersGroup" style="display: none;">
+          <label class="form-label">Select Members</label>
+          <select class="form-control form-select" id="specificMembers" multiple>
+            <option value="1">Rahul Sharma</option>
+            <option value="2">Priya Patel</option>
+            <option value="3">Amit Singh</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" id="notifText" rows="4" placeholder="Enter your message..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Send Notification
+        </button>
+      </form>
+    </div>
+  </main>
+
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEiWqxChMeB2zdsGE2Zw7g0G2eraMg30Y",
+    authDomain: "gym-management-system-13087.firebaseapp.com",
+    projectId: "gym-management-system-13087",
+    storageBucket: "gym-management-system-13087.appspot.com",
+    messagingSenderId: "134681146772",
+    appId: "1:134681146772:web:51ad6d0fd789fcea118b81",
+    measurementId: "G-PZLQXX5CXT"
+  };
+
+  // Initialize Firebase (only once)
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const tableBody = document.getElementById("memberTableBody");
+
+    try {
+      console.log("➡️ Loading members from Firestore...");
+      const snapshot = await db.collection("members").get();
+
+      if (snapshot.empty) {
+        tableBody.innerHTML = `<tr><td colspan="5">No members found.</td></tr>`;
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const row = `
+          <tr>
+            <td>${data.name || 'N/A'}</td>
+            <td>${data.email || 'N/A'}</td>
+            <td>${data.membershipType || 'N/A'}</td>
+            <td><span class="status-badge ${data.status === 'Active' ? 'status-active' : 'status-inactive'}">${data.status || 'Unknown'}</span></td>
+            <td>
+              <div class="action-btns">
+                <div class="action-btn edit-btn" onclick="editMember('${doc.id}')">
+                  <i class="fas fa-edit"></i>
+                </div>
+                <div class="action-btn delete-btn" onclick="deleteMember('${doc.id}')">
+                  <i class="fas fa-trash"></i>
+                </div>
+              </div>
+            </td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      });
+    } catch (error) {
+      console.error("❌ Error loading members:", error);
+      tableBody.innerHTML = `<tr><td colspan="5">Failed to load members.</td></tr>`;
+    }
+  });
+
+  async function deleteMember(id) {
+    if (confirm("Are you sure you want to delete this member?")) {
+      try {
+        await db.collection("members").doc(id).delete();
+        location.reload(); // Refresh the list
+      } catch (error) {
+        alert("❌ Failed to delete member.");
+        console.error(error);
+      }
+    }
+  }
+
+  function editMember(id) {
+    alert("Edit functionality for Member ID: " + id);
+    // You can redirect or open a modal here later
+  }
+</script>
+
+<script>
+document.getElementById("memberForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const plan = document.getElementById("member-plan").value;
+  const name = document.getElementById("member-name").value.trim();
+  const email = document.getElementById("member-email").value.trim();
+  const password = document.getElementById("member-password").value.trim();
+  const joinDateValue = document.getElementById("member-dob").value;
+  const gender = document.querySelector('input[name="member-gender"]:checked').value;
+  const phone = document.getElementById("member-phone").value.trim();
+
+  if (!plan || !name || !email || !password || !joinDateValue || !gender || !phone) {
+    alert("❌ Please fill in all fields.");
+    return;
+  }
+
+  try {
+    // Admin creates user in Firebase Authentication
+    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const uid = userCredential.user.uid;
+
+    // Format Join Date & Expiry Date
+    const joinDate = new Date(joinDateValue);
+    const expiryDate = new Date(joinDate);
+    expiryDate.setMonth(expiryDate.getMonth() + 1); // Add 1 month
+
+    // Save member details in Firestore
+    await db.collection("members").doc(uid).set({
+      name,
+      email,
+      phone,
+      gender,
+      membershipType: plan,
+      status: "Active",
+      joinDate: firebase.firestore.Timestamp.fromDate(joinDate),
+      membershipExpiry: firebase.firestore.Timestamp.fromDate(expiryDate),
+      createdBy: "admin",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    alert("✅ Member added successfully!");
+    document.getElementById("memberForm").reset();
+
+  } catch (error) {
+    console.error("❌ Error adding member:", error);
+    alert("❌ " + error.message);
+  }
+});
+</script>
+
+
+  <script>
+    // Tab functionality
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Show corresponding content
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+    
+    // Show/hide specific members select
+    document.getElementById('notifType').addEventListener('change', function() {
+      const specificGroup = document.getElementById('specificMembersGroup');
+      specificGroup.style.display = this.value === 'specific' ? 'block' : 'none';
+    });
+    
+    // Form submissions (would be connected to Firebase in real implementation)
+    document.getElementById('memberForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Member added successfully!');
+      this.reset();
+    });
+    
+    document.getElementById('billForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Bill created successfully!');
+      this.reset();
+    });
+    
+    document.getElementById('notificationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Notification sent successfully!');
+      this.reset();
+    });
+    
+
+    function logout() {
+      // Firebase logout would go here
+      alert('Logged out successfully!');
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>

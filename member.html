@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Dashboard | Muscle Mech</title>
+  <link rel="stylesheet" href="css/member.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEiWqxChMeB2zdsGE2Zw7g0G2eraMg30Y",
+    authDomain: "gym-management-system-13087.firebaseapp.com",
+    projectId: "gym-management-system-13087",
+    // etc.
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+<script>
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      try {
+        const doc = await db.collection("members").doc(user.uid).get();
+        if (doc.exists) {
+          const data = doc.data();
+
+          document.getElementById("memberName").textContent = data.name || "N/A";
+          document.getElementById("memberEmail").textContent = data.email || "N/A";
+
+          // Format Firestore timestamp to readable date
+          const joinDate = data.createdAt?.toDate().toLocaleDateString() || "N/A";
+          document.getElementById("memberJoinDate").textContent = joinDate;
+
+          // Optional fields (you can add these to Firestore during registration or later)
+          document.getElementById("memberExpiry").textContent = data.membershipExpiry || "Not Set";
+          document.getElementById("memberType").textContent = data.membershipType || "Basic";
+          document.getElementById("memberStatus").textContent = data.status || "Active";
+
+        } else {
+          alert("Member data not found.");
+        }
+      } catch (error) {
+        console.error("Error loading member data:", error);
+        alert("Failed to load member data.");
+      }
+    } else {
+      window.location.href = "auth/login.html"; // Redirect if not logged in
+    }
+  });
+</script>
+
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+       <img src="assets/images/logo.jpg" alt="Logo" style=" width: 60px; height: 60px; border-radius: 100%; transform: scale(2.);">
+    
+      <h1>Muscle Mech</h1>
+   
+          <a href="index.html" class="nav-link ">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Home</span>
+          </a>
+      
+       
+          <a href="#workoutPlanCard" class="nav-link">
+            <i class="fas fa-dumbbell"></i>
+            <span>Workout Plan</span>
+          </a>
+        
+          <a href="#workoutPlanCard" class="nav-link">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Schedule</span>
+          </a>
+     
+          <a href="#workoutPlanCard" class="nav-link">
+            <i class="fas fa-chart-line"></i>
+            <span>Progress</span>
+          </a>
+
+        
+          <a href="#workoutPlanCard" class="nav-link">
+            <i class="fas fa-user-md"></i>
+            <span>Trainers</span>
+          </a>
+        </li>
+          <a href="#bill" class="nav-link">
+            <i class="fas fa-credit-card"></i>
+            <span>Payments</span>
+          </a>
+          <a href="#" class="nav-link" id="logoutLink">
+  <i class="fas fa-cog"></i>
+  <span>Logout</span>
+</a>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Dashboard Content -->
+   <main class="dashboard-content">
+  <div class="welcome-banner">
+  <h2>Welcome Back, <span id="welcomeName">Member</span>!</h2>
+
+    <p>Let's crush your fitness goals!</p>
+  </div>
+      
+    <section class="member-info-section-container">
+        <div class="member-info-content-wrapper">
+            <div class="member-info-header-block">
+                <svg class="member-info-header-block-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                </svg>
+                <h2 class="member-info-header-block-title">Member Information</h2>
+            </div>
+
+            <div class="member-info-data-grid">
+  <div class="member-info-data-item">
+    <label class="member-info-data-label">Full Name</label>
+    <p class="member-info-data-value"><span id="memberName">Loading...</span></p>
+
+  </div>
+  <div class="member-info-data-item">
+    <label class="member-info-data-label">Join Date</label>
+    <p class="member-info-data-value" id="memberJoinDate">Loading...</p>
+  </div>
+  <div class="member-info-data-item">
+    <label class="member-info-data-label">Email</label>
+    <p class="member-info-data-value" id="memberEmail">Loading...</p>
+  </div>
+  <div class="member-info-data-item">
+    <label class="member-info-data-label">Membership Expiry</label>
+    <p class="member-info-data-value" id="memberExpiry">Loading...</p>
+  </div>
+  <div class="member-info-data-item">
+    <label class="member-info-data-label">Membership Type</label>
+    <p><span id="memberType" class="member-info-tag member-info-tag-premium">Loading...</span></p>
+  </div>
+  <div class="member-info-data-item">
+    <label class="member-info-data-label">Status</label>
+    <p><span id="memberStatus" class="member-info-tag member-info-tag-active">Loading...</span></p>
+  </div>
+</div>
+
+            <div class="member-info-summary-cards">
+                <div class="member-info-card">
+                    <div class="member-info-card-icon-wrapper member-info-card-icon-green">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.75 12.75a.75.75 0 0 1 1.06 0l7.22 7.22H3.75l7.22-7.22a.75.75 0 0 1 1.06 0Z" />
+                            <path d="M12.75 6.75a.75.75 0 0 1 1.06 0l7.22 7.22H3.75l7.22-7.22a.75.75 0 0 1 1.06 0Z" />
+                        </svg>
+                    </div>
+                    <div class="member-info-card-content">
+                        <h3 class="member-info-card-title">Total Paid</h3>
+                        <p class="member-info-card-value">₹ 1998</p>
+                    </div>
+                </div>
+
+                <div class="member-info-card">
+                    <div class="member-info-card-icon-wrapper member-info-card-icon-yellow">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5H16.5V3A.75.75 0 0 1 17.25 3v1.5h.75a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25H5.25a2.25 2.25 0 0 1-2.25-2.25V6.75a2.25 2.25 0 0 1 2.25-2.25H6.75V3ZM4.5 10.5a.75.75 0 0 0-.75.75v6.75a.75.75 0 0 0 .75.75h15a.75.75 0 0 0 .75-.75v-6.75a.75.75 0 0 0-.75-.75H4.5Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="member-info-card-content">
+                        <h3 class="member-info-card-title">Pending Bills</h3>
+                        <p class="member-info-card-value">1</p>
+                    </div>
+                </div>
+
+                <div class="member-info-card">
+                    <div class="member-info-card-icon-wrapper member-info-card-icon-blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3.75 4.5A.75.75 0 0 1 4.5 3h15a.75.75 0 0 1 .75.75V19.5a.75.75 0 0 1-.75.75H4.5A.75.75 0 0 1 3.75 19.5V4.5ZM12 12.75a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H12ZM10.5 7.5a.75.75 0 0 0-.75-.75H7.5a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75h2.25a.75.75 0 0 0 .75-.75V7.5Zm-.75 4.5a.75.75 0 0 0-.75-.75H7.5a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75h2.25a.75.75 0 0 0 .75-.75v-1.5Zm-.75 4.5a.75.75 0 0 0-.75-.75H7.5a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75h2.25a.75.75 0 0 0 .75-.75v-1.5Z" clip-rule="evenodd" />
+                            <path d="M18.75 6.75a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75h2.25a.75.75 0 0 0 .75-.75v-1.5Zm-.75 4.5a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75h2.25a.75.75 0 0 0 .75-.75v-1.5Zm-.75 4.5a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5a.75.75 0 0 0 .75.75h2.25a.75.75 0 0 0 .75-.75v-1.5Z" />
+                        </svg>
+                    </div>
+                    <div class="member-info-card-content">
+                        <h3 class="member-info-card-title">Package</h3>
+                        <p class="member-info-card-value">Premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <div class="dashboard-grid">
+        <!-- Progress Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Fitness Progress</h3>
+            <!--  <span class="card-actions">View Details</span> -->
+          </div> 
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Current Program</span>
+              <span>65% Complete</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value">12</div>
+              <div class="stat-label">Workouts</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">85%</div>
+              <div class="stat-label">Attendance</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">5.2kg</div>
+              <div class="stat-label">Muscle Gain</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Workout Plan Card -->
+        <div class="card" id="workoutPlanCard">
+          <div class="card-header">
+            <h3 class="card-title">Today's Workout</h3>
+            <!-- <span class="card-actions">Full Plan</span> -->
+          </div>
+          <div class="workout-item">
+            <div class="workout-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="workout-details">
+              <div class="workout-name">Bench Press</div>
+              <div class="workout-info">4 sets × 8 reps</div>
+            </div>
+          </div>
+          <div class="workout-item">
+            <div class="workout-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="workout-details">
+              <div class="workout-name">Incline Dumbbell Press</div>
+              <div class="workout-info">3 sets × 10 reps</div>
+            </div>
+          </div>
+          <div class="workout-item">
+            <div class="workout-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="workout-details">
+              <div class="workout-name">Tricep Dips</div>
+              <div class="workout-info">3 sets × 12 reps</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dashboard-grid">
+       <!-- Notifications Card -->
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Notifications</h3>
+    <!-- <span class="card-actions">View All</span> -->
+  </div>
+  <div class="notification-item">
+    <div class="notification-icon">
+      <i class="fas fa-bell"></i>
+    </div>
+    <div class="notification-content">
+      <div class="notification-title">Gym Closure Notice</div>
+      <div class="notification-message">The gym will be closed on July 4th for Independence Day</div>
+      <div class="notification-time">Today, 10:30 AM</div>
+    </div>
+  </div>
+  <div class="notification-item">
+    <div class="notification-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="notification-content">
+      <div class="notification-title">Payment Reminder</div>
+      <div class="notification-message">Your membership payment is due in 3 days</div>
+      <div class="notification-time">Yesterday, 2:15 PM</div>
+    </div>
+  </div>
+  <div class="notification-item">
+    <div class="notification-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="notification-content">
+      <div class="notification-title">Class Confirmation</div>
+      <div class="notification-message">Your booking for Yoga Class on Friday is confirmed</div>
+      <div class="notification-time">Jun 28, 9:45 AM</div>
+    </div>
+  </div>
+</div>
+        
+        <!-- Nutrition Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Nutrition Plan</h3>
+            <!-- <span class="card-actions">Details</span> -->
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Daily Calories</span>
+              <span>1,850/2,400 kcal</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 77%;"></div>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-value">145g</div>
+              <div class="stat-label">Protein</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">210g</div>
+              <div class="stat-label">Carbs</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">65g</div>
+              <div class="stat-label">Fats</div>
+            </div>
+          </div>
+        </div>
+      
+        
+      </div>
+
+ <div class="receipts-container" id="bill">
+        <div class="receipts-header">
+            <svg class="receipts-header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+            </svg>
+            <h2 class="receipts-header-title">Bills & Receipts</h2>
+        </div>
+
+        <div class="receipts-list">
+            <div class="receipt-item">
+                <div class="receipt-info">
+                    <div class="receipt-title-status">
+                        <p class="receipt-id">Receipt #RCP-001</p>
+                        <span class="status-tag paid">Paid</span>
+                    </div>
+                    <p class="receipt-detail">Amount: <strong>999</strong></p>
+                    <p class="receipt-detail">Package: <strong>Premium</strong></p>
+                    <p class="receipt-detail">Due: <strong>2024-06-15</strong></p>
+                    <p class="receipt-paid-on">Paid on: 2024-06-10</p>
+                </div>
+                <div class="receipt-actions">
+                    <a href="#" class="download-button" download="receipt-RCP-001.pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75ZM6 17.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                        </svg>
+                        Download
+                    </a>
+                </div>
+            </div>
+
+            <div class="receipt-item">
+                <div class="receipt-info">
+                    <div class="receipt-title-status">
+                        <p class="receipt-id">Receipt #RCP-002</p>
+                        <span class="status-tag paid">Paid</span>
+                    </div>
+                    <p class="receipt-detail">Amount: <strong>999</strong></p>
+                    <p class="receipt-detail">Package: <strong>Premium</strong></p>
+                    <p class="receipt-detail">Due: <strong>2024-05-15</strong></p>
+                    <p class="receipt-paid-on">Paid on: 2024-05-12</p>
+                </div>
+                <div class="receipt-actions">
+                    <a href="#" class="download-button" download="receipt-RCP-002.pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75ZM6 17.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                        </svg>
+                        Download
+                    </a>
+                </div>
+            </div>
+
+            <div class="receipt-item">
+                <div class="receipt-info">
+                    <div class="receipt-title-status">
+                        <p class="receipt-id">Receipt #RCP-003</p>
+                        <span class="status-tag pending">Pending</span>
+                    </div>
+                    <p class="receipt-detail">Amount: <strong>999</strong></p>
+                    <p class="receipt-detail">Package: <strong>Premium</strong></p>
+                    <p class="receipt-detail">Due: <strong>2024-07-15</strong></p>
+                    </div>
+                <div class="receipt-actions">
+                    <a href="#" class="download-button" download="receipt-RCP-003.pdf">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75ZM6 17.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H6.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                        </svg>
+                        Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Contact Card -->
+        <div class="contact-card">
+          <div class="card-header">
+            <h3 class="card-title">Contact the Gym</h3>
+          </div>
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Call Us</h4>
+                <p>+91 990XXXXXXX</p>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Email Us</h4>
+                <p>support@Muscle Mech.com</p>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-info">
+                <h4>Visit Us</h4>
+                <p>1A Street Delhi, India</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form">
+            <h4>Send a Message</h4>
+            <form>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" class="form-control" placeholder="What's this about?">
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" class="form-control" placeholder="Type your message here..."></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      
+      </div>
+    </main>
+  </div>
+
+
+<script>
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (user) {
+      const doc = await firebase.firestore().collection("members").doc(user.uid).get();
+      if (doc.exists) {
+        const data = doc.data();
+
+        
+        document.getElementById("welcomeName").textContent = data.name || "Member";
+        document.getElementById("memberName").textContent = data.name || "N/A";
+        document.getElementById("memberEmail").textContent = data.email || "N/A";
+        document.getElementById("memberJoinDate").textContent = data.createdAt?.toDate().toLocaleDateString() || "N/A";
+      document.getElementById("memberExpiry").textContent = data.expiryDate || "N/A";
+      document.getElementById("memberType").textContent = data.membershipType || "N/A";
+      document.getElementById("memberStatus").textContent = "Active"; 
+    } else {
+      console.error("No member data found.");
+    }
+  } else {
+    window.location.href = "auth/login.html"; 
+  }
+});
+</script>
+
+<script>
+  document.getElementById("logoutLink").addEventListener("click", (e) => {
+    e.preventDefault(); 
+    firebase.auth().signOut().then(() => {
+      
+      window.location.href = "index.html";
+    }).catch((error) => {
+      console.error("Logout failed:", error);
+      alert("Logout failed. Please try again.");
+    });
+  });
+</script>
+</body>
+</html>
